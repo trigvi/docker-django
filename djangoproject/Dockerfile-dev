@@ -1,0 +1,8 @@
+FROM python:3.9-slim-bullseye
+
+RUN apt update -y
+
+WORKDIR /
+COPY ./requirements.txt .
+RUN cat requirements.txt | grep -v '==0.0.0' > requirements.sanitised.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.sanitised.txt

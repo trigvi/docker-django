@@ -1,0 +1,23 @@
+FROM python:3.9-slim-bullseye
+
+RUN apt update -y
+RUN apt install nginx -y
+
+# Nginx website configuration file to run website on port 80, proxy passe to port 6970 (gunicorn) and serve static files (from djangoproject/static directory)
+COPY ./nginx-website.conf /etc/nginx/sites-available/default
+
+WORKDIR /opt/djangoproject
+COPY ./requirements.txt .
+RUN cat requirements.txt | grep -v '==0.0.0' > requirements.sanitised.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.sanitised.txt
+COPY . .
+
+WORKDIR /opt/djangoproject/djangoapps
+RUN echo "#!/bin/bash" >> start.sh
+RUN echo "service nginx start" >> start.sh
+RUN echo "python manage.py migrate --noinput" >> start.sh
+RUN echo "python manage.py collectstatic --noinput" >> start.sh
+RUN echo "gunicorn --bind 127.0.0.1:6970 wsgi:application" >> start.sh
+RUN chmod +x start.sh
+
+ENTRYPOINT ["./start.sh"]

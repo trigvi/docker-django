@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        /* general */
+
+        * {
+            box-sizing:border-box;
+            -webkit-box-sizing:border-box;
+            -moz-box-sizing:border-box;
+
+            font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizelegibility;
+
+            outline: 0;
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        *::selection {
+            background: yellow;
+            color: #333;
+        }
+
+        html {
+            font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 10pt;
+            color: #333;
+        }
+
+        @media screen and (min-width: 768px) {
+            html { font-size: 11pt; }
+        }
+
+        @media screen and (min-width: 1280px) {
+            html { font-size: 12pt; }
+        }
+
+        @media screen and (min-width: 1680px) {
+            html { font-size: 14pt; }
+        }
+
+        body, input, select, textarea {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        body {
+            background: #ddd;
+        }
+
+
+        /* hero */
+
+        .hero {
+            display: grid;
+            align-content: center;
+            padding: 6rem 3rem;
+            text-align: left;
+        }
+
+            .hero-headline {
+                font-size: 3rem;
+                font-weight: bold;
+                line-height: 1.4;
+                margin-bottom: 1rem;
+                position: relative;
+            }
+
+            .hero .blurb {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+                opacity: 0.5;
+            }
+
+        @media screen and (min-width: 920px) {
+
+            .hero {
+                min-height: 70vh;
+                padding: 0 10%;
+            }
+
+                .hero-headline {
+                    max-width: 70%;
+                }
+
+                .hero .blurb {
+                    max-width: 70%;
+                    font-size: 0.95rem;
+                }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="hero">
+        <h1 class="hero-headline">
+            {% block headline %}{% endblock %}
+        </h1>
+        <p class="blurb">
+            {% block description %}{% endblock %}
+        </p>
+    </div>
+
+</body>
+</html>

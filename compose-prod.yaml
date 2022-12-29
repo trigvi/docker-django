@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+
+  postgres:
+    image: postgres:14.1-alpine
+    expose:
+      - "5432"
+    volumes:
+      - vpostgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: thedbname
+      POSTGRES_USER: thedbuser
+      POSTGRES_PASSWORD: thedbpwd
+    networks:
+      - ndockerdjango
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  djangoproject:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build:
+      context: ./djangoproject
+      dockerfile: Dockerfile-prod
+    env_file:
+      - ./djangoproject.env
+    ports:
+      - "127.0.0.1:50500:80"
+    networks:
+      - ndockerdjango
+
+networks:
+  ndockerdjango:
+    name: ndockerdjango
+
+volumes:
+    vpostgres: {}

@@ -1,4 +1,3 @@
-x   
 This repository is a simple blueprint for running a Django project on 2 Docker containers (`djangoproject`, `postgres`) using *docker-compose*.
 
 It has has step-by-step instructions for both *Development* and *Production*. All commands below have been tested on Linux Debian 11.
@@ -20,7 +19,7 @@ rm -rf .git*
 
 The `djangoproject` container simply links to the `djangoproject` codebase directory on the host machine. So you can keep coding on the host machine while Django web server runs in the container, auto-restarts after code changes, serves static files.
 
-Caveat. All commands below are preceeded by `env UID=$(id -u) GID=$(id -g)`. This makes the container sets the ownership of any new file it creates (e.g. when your run Django `startapp`) to your host machine user. This way you're able to modify/delete any codebase file after you kill the container.
+Caveat. All commands below are preceeded by `env UID=$(id -u) GID=$(id -g)`. This makes the container set ownership of any new file it creates (e.g. when your run Django `startapp`) to the same user of your host machine.
 
 **Setup steps**
 

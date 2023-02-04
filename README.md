@@ -1,4 +1,4 @@
-
+x   
 This repository is a simple blueprint for running a Django project on 2 Docker containers (`djangoproject`, `postgres`) using *docker-compose*.
 
 It has has step-by-step instructions for both *Development* and *Production*. All commands below have been tested on Linux Debian 11.
@@ -71,9 +71,9 @@ Caveat. All commands below are preceeded by `env UID=$(id -u) GID=$(id -g)`. Thi
     env UID=$(id -u) GID=$(id -g) docker-compose --file compose-dev.yaml exec djangoproject python manage.py collectstatic
     ```
 
-* Using a web browser, go to the `/admin` endpoint of the `WEBSITE_BASE_URL` you configured in `djangoproject.env`. For example:
+* Using a web browser, go to the `/admin/` endpoint of the `WEBSITE_BASE_URL` you configured in `djangoproject.env`. For example:
     ```
-    http://127.0.0.1:50500/admin
+    http://127.0.0.1:50500/admin/
     ```
 
 * Useful commands:
@@ -82,7 +82,7 @@ Caveat. All commands below are preceeded by `env UID=$(id -u) GID=$(id -g)`. Thi
     env UID=$(id -u) GID=$(id -g) docker-compose --file compose-dev.yaml down
 
     # View Django logs
-    env UID=$(id -u) GID=$(id -g) docker-compose --file compose-dev.yaml logs djangoproject --follow
+    env UID=$(id -u) GID=$(id -g) docker-compose --file compose-dev.yaml logs djangoproject
 
     # Create new Django app "ciaooo"
     env UID=$(id -u) GID=$(id -g) docker-compose --file compose-dev.yaml exec djangoproject python manage.py startapp ciaooo
@@ -168,9 +168,9 @@ The `djangoproject` container stores a copy of the `djangoproject` codebase, run
 
 * Secure your domain with TLS (https), perhaps using Certbot.
 
-* Using a web browser, go to the `/admin` endpoint of the `WEBSITE_BASE_URL` you configured in `djangoproject.env`. For example:
+* Using a web browser, go to the `/admin/` endpoint of the `WEBSITE_BASE_URL` you configured in `djangoproject.env`. For example:
     ```
-    https://yourdomain.com/admin
+    https://yourdomain.com/admin/
     ```
 
 * Useful commands:
@@ -179,7 +179,7 @@ The `djangoproject` container stores a copy of the `djangoproject` codebase, run
     docker-compose --file compose-prod.yaml down
 
     # View Django logs
-    docker-compose --file compose-prod.yaml logs djangoproject --follow
+    docker-compose --file compose-prod.yaml logs djangoproject
 
     # Access the Postgres CLI:
     docker-compose --file compose-prod.yaml exec postgres psql -U thedbuser thedbname

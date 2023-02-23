@@ -19,7 +19,7 @@ rm -rf .git*
 
 The `djangoproject` container simply links to the `djangoproject` codebase directory on the host machine. So you can keep coding on the host machine while Django web server runs in the container, auto-restarts after code changes, serves static files.
 
-**Caveatw**
+**Caveat**
 
 All commands below are preceeded by `env UID=$(id -u) GID=$(id -g)`. This makes the container set ownership of any new file it creates (e.g. when your run Django `startapp`) to the same user of your host machine.
 
